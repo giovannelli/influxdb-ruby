@@ -751,7 +751,8 @@ found in `lib/influxdb/config.rb` for the source of truth.
 |                 | `:password`             | "root"        | user credentials
 |                 | `:open_timeout`         | 5             | socket timeout
 |                 | `:read_timeout`         | 300           | socket timeout
-|                 | `:auth_method`          | "params"      | "params", "basic_auth" or "none"
+|                 | `:auth_method`          | "params"      | "params", "basic_auth", "token" or "none"
+|                 | `:auth_token`           | *empty*       | Authorization: Token header
 | Retry           | `:retry`                | -1            | max. number of retry attempts (reading and writing)
 |                 | `:initial_delay`        | 0.01          | initial wait time (doubles every retry attempt)
 |                 | `:max_delay`            | 30            | max. wait time when retrying

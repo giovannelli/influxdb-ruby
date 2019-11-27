@@ -16,6 +16,7 @@ module InfluxDB
     open_timeout:         5,
     read_timeout:         300,
     auth_method:          nil,
+    auth_token:           nil,
 
     # SSL options
     use_ssl:              false,
@@ -49,6 +50,7 @@ module InfluxDB
       "params".freeze,
       "basic_auth".freeze,
       "none".freeze,
+      "token".freeze,
     ].freeze
 
     ATTR_READER = %i[async udp].freeze

@@ -70,12 +70,17 @@ module InfluxDB
 
     def do_request(http, req, data = nil)
       req.basic_auth config.username, config.password if basic_auth?
+      req.add_field 'Authorization', "Token #{config.auth_token}" if token_auth?
       req.body = data if data
       http.request(req)
     end
 
     def basic_auth?
       config.auth_method == 'basic_auth'
+    end
+
+    def token_auth?
+      config.auth_method == 'token'
     end
 
     def resolve_error(response)

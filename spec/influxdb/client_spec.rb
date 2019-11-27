@@ -39,6 +39,26 @@ describe InfluxDB::Client do
     end
   end
 
+  context "with token auth" do
+    let(:auth_token) { "123abc" }
+    let(:args) { { auth_method: 'token', auth_token: auth_token } }
+
+    let(:auth_header) { { "Authorization" => "Token " + auth_token } }
+
+    let(:stub_url)  { "http://influxdb.test:9999/" }
+    let(:url)       { subject.send(:full_url, '/') }
+
+    it "GET" do
+      stub_request(:get, stub_url).with(headers: auth_header).to_return(body: '[]')
+      expect(subject.get(url, parse: true)).to eq []
+    end
+
+    it "POST" do
+      stub_request(:post, stub_url).with(headers: auth_header).to_return(status: 204)
+      expect(subject.post(url, {})).to be_a(Net::HTTPNoContent)
+    end
+  end
+
   describe "#full_url" do
     it "returns String" do
       expect(subject.send(:full_url, "/unknown")).to be_a String
