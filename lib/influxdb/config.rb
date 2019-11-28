@@ -25,6 +25,8 @@ module InfluxDB
 
     # Database options
     database:             nil,
+    org_id:               nil,
+    bucket:               nil,
     time_precision:       "s".freeze,
     epoch:                false,
 

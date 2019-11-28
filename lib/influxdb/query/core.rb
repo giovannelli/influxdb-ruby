@@ -78,7 +78,9 @@ module InfluxDB
           precision: precision || config.time_precision,
         }
 
-        params[:rp] = retention_policy if retention_policy
+        params[:rp]     = retention_policy if retention_policy
+        params[:org]    = config.org_id    if config.org_id
+        params[:bucket] = config.bucket    if config.bucket
         url = full_url("/write", params)
         post(url, data)
       end
@@ -90,9 +92,14 @@ module InfluxDB
         precision:  config.time_precision,
         epoch:      config.epoch,
         chunk_size: config.chunk_size,
-        database:   config.database
+        database:   config.database,
+        bucket:     config.bucket,
+        org_id:     config.org_id
       )
-        params = { q: query, db: database }
+        params = { q: query }
+        params[:db]        = database  if database
+        params[:bucket]    = bucket    if bucket
+        params[:org]       = org_id    if org_id
         params[:precision] = precision if precision
         params[:epoch]     = epoch     if epoch
 
